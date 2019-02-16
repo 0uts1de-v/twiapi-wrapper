@@ -29,7 +29,7 @@ def tweet(text, *img):
     if len(media_id) == 0:
         params = {"status" : text}
     else:
-        params = {"status" : text, "media_ids" : media_id}
+        params = {"status" : text, "media_ids" : ",".join(map(str, media_id))}
     
     res = twitter.post(url, params = params)
     
