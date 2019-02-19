@@ -45,7 +45,23 @@ def icon(image):
 
     params = {"image": enc_img}
 
-    res = twitter.post(url, data = params)  # post送信
+    res = twitter.post(url, data = params)
 
     if res.status_code != 200:
         print("Post image failed. : %s" % res.text)
+
+
+def name(name):
+    if type(name) != str:
+        name = str(name)
+    
+    twitter = config.twitter
+    
+    url = "https://api.twitter.com/1.1/account/update_profile.json"
+    
+    params = {"name" : name}
+    
+    res = twitter.post(url, params = params)
+    
+    if res.status_code != 200:
+        print("Post name failed. : %s" % res.text)
