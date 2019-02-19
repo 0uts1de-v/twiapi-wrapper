@@ -1,5 +1,4 @@
 import config
-from requests_oauthlib import OAuth1Session
 import json
 import base64
 
@@ -11,9 +10,9 @@ def tweet(text, *img):
     
     if type(text) != str:
         text = str(text)
-    
-    twitter = OAuth1Session(config.CK, config.CS, config.AT, config.ATS)
-    
+
+    twitter = config.twitter
+
     url = "https://api.twitter.com/1.1/statuses/update.json"
     url_img = "https://upload.twitter.com/1.1/media/upload.json"
     media_id = []
@@ -34,5 +33,19 @@ def tweet(text, *img):
     res = twitter.post(url, params = params)
     
     if res.status_code != 200:
-        print("Failed to post : %s"% res.text)
+        print("Post tweet failed : %s" % res.text)
+
+
+def icon(image):
+    twitter = config.twitter
     
+    url = "https://api.twitter.com/1.1/account/update_profile_image.json"
+    
+    enc_img = base64.b64encode(image)
+
+    params = {"image": enc_img}
+
+    res = twitter.post(url, data = params)  # post送信
+
+    if res.status_code != 200:
+        print("Post image failed. : %s" % res.text)

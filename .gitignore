@@ -103,4 +103,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-/src/test.py
+/src/test.*
